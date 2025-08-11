@@ -16,6 +16,7 @@ internal class FileReader
                 Console.WriteLine($"File not found: {filePath}");
                 return new List<Ticket>();
             }
+        
             string json = await File.ReadAllTextAsync(filePath);
             return System.Text.Json.JsonSerializer.Deserialize<List<Ticket>>(json) ?? new List<Ticket>();
         }

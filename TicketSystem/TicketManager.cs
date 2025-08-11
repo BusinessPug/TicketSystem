@@ -13,13 +13,14 @@ public class TicketManager
     public static List<Ticket> GetTickets()
     {
         SortTicketsByStatus();
-        return new List<Ticket>(tickets);
+        return new List<Ticket>(tickets); // can be written as return [..tickets] to automatically create a new list populated with "tickets"
     }
 
     public static void CloseTicket(int index)
     {
         if (index >= 0 && index < tickets.Count)
             tickets[index] = tickets[index] with { IsClosed = true };
+
         else
             throw new ArgumentOutOfRangeException("Invalid ticket index.");
     }
@@ -44,10 +45,10 @@ public class TicketManager
         for (int i = 0; i < tickets.Count; i++)
         {
             if (tickets[i].IsClosed)
-                newTickets.Add(tickets[i]);
+                newTickets.Insert(0, tickets[i]);
 
             else
-                newTickets.Insert(0, tickets[i]);
+                newTickets.Add(tickets[i]);
         }
 
         // Expanded from what i would've done in the real world, with linq:

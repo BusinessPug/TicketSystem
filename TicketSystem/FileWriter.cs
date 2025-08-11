@@ -10,6 +10,11 @@ internal class FileWriter
         }
         try
         {
+            if (!filePath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                filePath += ".json";
+            }
+            File.Delete(filePath); // delete the file if it exists, to ensure we write a fresh file
             string json = System.Text.Json.JsonSerializer.Serialize(tickets);
             await File.WriteAllTextAsync(filePath, json);
         }

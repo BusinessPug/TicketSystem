@@ -1,4 +1,4 @@
-﻿namespace TicketSystem;
+﻿namespace TicketSystem.Views;
 
 internal class TicketLoader
 {
@@ -31,17 +31,22 @@ internal class TicketLoader
     public static async Task LoadFilesScreen(List<List<Ticket>> allFound, List<string> fileNames)
     {
         Console.Clear();
-        ConsoleHelpers.HashLineDarkBlue();
-        Console.WriteLine("Load Tickets from File");
-        ConsoleHelpers.HashLineDarkBlue();
-        Console.WriteLine("Found the following files with ticket data:");
+        
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        ConsoleHelpers.WriteWithRainbow("Load Tickets from File");
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        
+        ConsoleHelpers.WriteLineWithColor("Found the following files with ticket data:", ConsoleColor.Green);
         for (int i = 0; i < allFound.Count; i++)
         {
-            Console.WriteLine($"{i + 1} - {allFound[i].Count} tickets found in file {fileNames[i]}");
+            ConsoleHelpers.WriteLineWithColor($"{i + 1}. {allFound[i].Count} tickets found in file {fileNames[i]}", ConsoleColor.DarkYellow);
         }
-        ConsoleHelpers.HashLineDarkBlue();
+        
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        
         Console.Write("Enter the number of the file to load or 'c' to continue without loading a savefile: ");
         string input = Console.ReadLine();
+        
         if (input.ToLower() == "c")
         {
             return;

@@ -1,4 +1,4 @@
-﻿using TicketSystem;
+﻿using TicketSystem.Views;
 
 public static class Program
 {

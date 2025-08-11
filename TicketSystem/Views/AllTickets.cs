@@ -1,18 +1,21 @@
-﻿namespace TicketSystem;
+﻿namespace TicketSystem.Views;
 
 internal class AllTickets
 {
     public static void ViewTicketsScreen()
     {
         Console.Clear();
-        ConsoleHelpers.HashLineDarkBlue();
-        Console.WriteLine("Ticket Overview");
-        ConsoleHelpers.HashLineDarkBlue();
+
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        ConsoleHelpers.WriteWithRainbow("Ticket Overview");
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        
         var tickets = TicketManager.GetTickets();
+        
         if (tickets.Count == 0)
         {
             Console.WriteLine("No tickets available.");
-            ConsoleHelpers.HashLineDarkBlue();
+            ConsoleHelpers.HashLineDarkBlue(); // ###
             Console.WriteLine("Press any key to return to the main menu.");
         }
         else
@@ -20,11 +23,20 @@ internal class AllTickets
             for (int i = 0; i < tickets.Count; i++)
             {
                 var ticket = tickets[i];
-                Console.WriteLine($"{i + 1}. {ticket.Title} - {(ticket.IsClosed ? "Closed" : "Open")}");
+                if (i % 2 == 0)
+                {
+                    ConsoleHelpers.WriteLineWithColor($"{i + 1}. {ticket.Title} - {(ticket.IsClosed ? "Closed" : "Open")}", ConsoleColor.DarkGreen);
+                }
+                else
+                {
+                    ConsoleHelpers.WriteLineWithColor($"{i + 1}. {ticket.Title} - {(ticket.IsClosed ? "Closed" : "Open")}", ConsoleColor.DarkCyan);
+                }
             }
-            ConsoleHelpers.HashLineDarkBlue();
+        
+            ConsoleHelpers.HashLineDarkBlue(); // ###
             Console.Write("Enter the ticket number to view details or 'b' to go back: ");
             string input = Console.ReadLine();
+            
             if (input.ToLower() == "b")
             {
                 return;
@@ -35,7 +47,7 @@ internal class AllTickets
             }
             else
             {
-                Console.WriteLine("Invalid input. Press any key to return to the main menu.");
+                ConsoleHelpers.WriteLineWithColor("Invalid input. Press any key to return to the main menu.", ConsoleColor.Red);
                 Console.ReadKey();
             }
         }
@@ -44,6 +56,7 @@ internal class AllTickets
     public static void ViewTicketDetailsScreen(int index)
     {
         Console.Clear();
+        
         var tickets = TicketManager.GetTickets();
         if (index < 0 || index >= tickets.Count)
         {
@@ -52,14 +65,19 @@ internal class AllTickets
             Console.ReadKey();
             return;
         }
+        
         var ticket = tickets[index];
-        ConsoleHelpers.HashLineDarkBlue();
-        Console.WriteLine("Ticket Details");
-        ConsoleHelpers.HashLineDarkBlue();
-        Console.WriteLine($"Title: {ticket.Title}");
-        Console.WriteLine($"Description: {ticket.Description}");
-        Console.WriteLine($"Is Closed: {ticket.IsClosed}");
-        ConsoleHelpers.HashLineDarkBlue();
+        
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        ConsoleHelpers.WriteWithRainbow("Ticket Details");
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        
+        ConsoleHelpers.WriteLineWithColor($"Title: {ticket.Title}", ConsoleColor.Green);
+        ConsoleHelpers.WriteLineWithColor($"Description: {ticket.Description}", ConsoleColor.Blue);
+        ConsoleHelpers.WriteLineWithColor($"Is Closed: {ticket.IsClosed}", ConsoleColor.Yellow);
+        
+        ConsoleHelpers.HashLineDarkBlue(); // ###
+        
         Console.WriteLine("Press any key to return to the main menu.");
         Console.ReadKey();
     }
