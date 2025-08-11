@@ -2,7 +2,7 @@
 
 internal class FileWriter
 {
-    public static void WriteToJson(List<Ticket> tickets, string? filePath)
+    public static async Task WriteToJsonAsync(List<Ticket> tickets, string? filePath)
     {
         if (string.IsNullOrEmpty(filePath))
         {
@@ -11,7 +11,7 @@ internal class FileWriter
         try
         {
             string json = System.Text.Json.JsonSerializer.Serialize(tickets);
-            File.WriteAllText(filePath, json);
+            await File.WriteAllTextAsync(filePath, json);
         }
         catch (Exception ex)
         {
@@ -19,7 +19,8 @@ internal class FileWriter
         }
     }
 
-    public static void WriteToTxt(List<Ticket> tickets, string? filePath)
+    // Not used. but shows how i would write to a txt file instead of a json file.
+    public static async Task WriteToTxtAsync(List<Ticket> tickets, string? filePath)
     {
         if (string.IsNullOrEmpty(filePath))
         {
@@ -31,10 +32,10 @@ internal class FileWriter
             {
                 foreach (var ticket in tickets)
                 {
-                    writer.WriteLine($"Title: {ticket.Title}");
-                    writer.WriteLine($"Description: {ticket.Description}");
-                    writer.WriteLine($"Is Closed: {ticket.IsClosed}");
-                    writer.WriteLine(new string('-', 20));
+                    await writer.WriteLineAsync($"Title: {ticket.Title}");
+                    await writer.WriteLineAsync($"Description: {ticket.Description}");
+                    await writer.WriteLineAsync($"Is Closed: {ticket.IsClosed}");
+                    await writer.WriteLineAsync(new string('-', 20));
                 }
             }
         }
@@ -44,20 +45,21 @@ internal class FileWriter
         }
     }
 
-    public static void WriteToTxtWithoutStreamWriter(List<Ticket> tickets, string? filePath)
+    // Not used, but shows how i would write to a txt file without using StreamWriter.
+    public static async Task WriteToTxtWithoutStreamWriterAsync(List<Ticket> tickets, string? filePath)
     {
         if (string.IsNullOrEmpty(filePath))
         {
-            filePath = "tickets_weird.txt"; // default if no path is provided
+            filePath = "tickets_nostream.txt"; // default if no path is provided
         }
         foreach(var ticket in tickets)
         {
             try
             {
-                File.AppendAllText(filePath, $"Title: {ticket.Title}\n");
-                File.AppendAllText(filePath, $"Description: {ticket.Description}\n");
-                File.AppendAllText(filePath, $"Is Closed: {ticket.IsClosed}\n");
-                File.AppendAllText(filePath, new string('-', 20) + "\n");
+                await File.AppendAllTextAsync(filePath, $"Title: {ticket.Title}\n");
+                await File.AppendAllTextAsync(filePath, $"Description: {ticket.Description}\n");
+                await File.AppendAllTextAsync(filePath, $"Is Closed: {ticket.IsClosed}\n");
+                await File.AppendAllTextAsync(filePath, new string('-', 20) + "\n");
             }
             catch (Exception ex)
             {

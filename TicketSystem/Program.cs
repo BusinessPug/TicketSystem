@@ -2,9 +2,9 @@
 
 public static class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
-        TicketSystemRunner ticketSystem = TicketSystemRunner.Instance;
-        ticketSystem.Run();
+        await TicketSystemRunner.GetSaveFile();
+        await TicketSystemRunner.MainMenu();
     }
 }
