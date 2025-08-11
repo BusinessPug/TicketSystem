@@ -12,8 +12,6 @@ public class TicketManager
 
     public static List<Ticket> GetTickets()
     {
-        // We return a copy of the list to prevent external modification (so it's a mutable copy, not a reference)
-        // The mutability in this instance will not be used, but i stand by sending the copy
         SortTicketsByStatus();
         return new List<Ticket>(tickets);
     }

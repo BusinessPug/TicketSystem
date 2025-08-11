@@ -4,7 +4,7 @@ public static class Program
 {
     public static async Task Main(string[] args)
     {
-        await TicketSystemRunner.GetSaveFile();
-        await TicketSystemRunner.MainMenu();
+        await TicketLoader.GetSaveFiles();
+        await MainMenu.Menu();
     }
 }
