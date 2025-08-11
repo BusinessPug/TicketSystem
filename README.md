@@ -154,4 +154,3 @@ You can create, view, close, delete, and save tickets — with colorful menus fo
 - **Keep your ticket list small**: Only 5 open tickets are allowed at once.
 - **Save regularly** to avoid losing your work.
 - **Closed tickets remain stored** until deleted manually.
-```
