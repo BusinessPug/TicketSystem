@@ -21,7 +21,7 @@ public class TicketManager
         if (index >= 0 && index < tickets.Count)
             tickets[index] = tickets[index] with { IsClosed = true };
 
-        else
+        else 
             throw new ArgumentOutOfRangeException("Invalid ticket index.");
     }
 

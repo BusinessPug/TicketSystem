@@ -8,9 +8,9 @@ internal class SnakeLoader
         Instance = this;
     }
 
-    public static void LoadSnakeGame()
+    public static async Task LoadSnakeGame()
     {
         Console.Clear();
-        SnakeGame.Start();
+        await SnakeGame.Start();
     }
 }

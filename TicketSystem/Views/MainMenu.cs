@@ -47,7 +47,7 @@ public class MainMenu
                     Exit.ExitScreen();
                     return;
                 case "7":
-                    SnakeLoader.LoadSnakeGame();
+                    await SnakeLoader.LoadSnakeGame();
                     break;
                 default:
                     Console.WriteLine("Invalid choice, please try again.");

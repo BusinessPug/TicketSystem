@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TicketSystem.Snake
 {
@@ -39,7 +40,7 @@ namespace TicketSystem.Snake
         // Current direction; defaults to right.
         private static ConsoleKey currentKey = ConsoleKey.RightArrow;
 
-        public static void Start()
+        public static async Task Start()
         {
             // Prompt user for grid dimensions and refresh rate.
             Console.Clear();
@@ -86,7 +87,8 @@ namespace TicketSystem.Snake
             DrawGrid();
             Console.ReadKey(true);
             Thread.Sleep(150); // extra delay to ensure previous key states clear (necessary from testing).
-            GameLoop();
+            await GameLoop();
+            await Clean();
             Console.CursorVisible = true;
         }
 
@@ -178,7 +180,7 @@ namespace TicketSystem.Snake
             Console.Write(sb.ToString());
         }
 
-        private static void GameLoop()
+        private static async Task GameLoop()
         {
             bool exitGame = false;
             while (!exitGame)
@@ -227,7 +229,7 @@ namespace TicketSystem.Snake
                         Console.SetCursorPosition(0, GridHeight - 4);
                         Console.WriteLine("Game Over! You collided with yourself.");
                         Console.WriteLine("Press any button to return to the actual task at hand");
-                        Console.ReadKey(true);
+                        WaitForFreshKeypress();
                         break;
                     }
                 }
@@ -236,6 +238,17 @@ namespace TicketSystem.Snake
                 Thread.Sleep(refreshRate);
             }
         }
+
+        static void WaitForFreshKeypress()
+        {
+            // Drain the buffer so we don't consume a previously pressed key
+            while (Console.KeyAvailable)
+                Console.ReadKey(true);
+
+            // block until the *next* key the user presses
+            Console.ReadKey(true);
+        }
+
 
         private static ConsoleKey? PollKey()
         {
@@ -282,6 +295,13 @@ namespace TicketSystem.Snake
                    (current == ConsoleKey.DownArrow && newKey == ConsoleKey.UpArrow) ||
                    (current == ConsoleKey.LeftArrow && newKey == ConsoleKey.RightArrow) ||
                    (current == ConsoleKey.RightArrow && newKey == ConsoleKey.LeftArrow);
+        }
+        
+        static async Task Clean()
+        {
+            Console.SetWindowSize(200, 200);
+            Console.SetBufferSize(200, 200);
+            Console.Clear();
         }
     }
 }
