@@ -200,6 +200,17 @@ namespace TicketSystem.Snake
                 }
 
                 MoveSnake(currentKey);
+                if (snakeHeadX == 0 || snakeHeadX >= GridWidth ||
+                    snakeHeadY == 0 || snakeHeadY >= GridHeight)
+                {
+                    DrawGrid();
+                    exitGame = true;
+                    Console.SetCursorPosition(0, GridHeight - 4);
+                    Console.WriteLine("Game Over! You hit the wall.");
+                    Console.WriteLine("Press any button to return to the actual task at hand");
+                    WaitForFreshKeypress();
+                    break;
+                }
 
                 // Check if food is eaten.
                 if (snakeHeadX == foodX && snakeHeadY == foodY)
