@@ -103,14 +103,6 @@ Main Menu
 
 ---
 
-## Proposed Future Enhancements
-- Add search/filter for tickets.
-- Allow editing ticket descriptions.
-- Implement more robust sorting (e.g., by creation date).
-- Improve error handling for file operations with clearer feedback.
-
----
-
 # End User Guide
 
 ## Overview
