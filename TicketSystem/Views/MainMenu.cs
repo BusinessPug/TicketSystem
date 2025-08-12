@@ -1,4 +1,6 @@
-﻿namespace TicketSystem.Views;
+﻿using TicketSystem.Snake;
+
+namespace TicketSystem.Views;
 
 public class MainMenu
 {
@@ -44,6 +46,9 @@ public class MainMenu
                 case "6":
                     Exit.ExitScreen();
                     return;
+                case "7":
+                    SnakeLoader.LoadSnakeGame();
+                    break;
                 default:
                     Console.WriteLine("Invalid choice, please try again.");
                     break;
