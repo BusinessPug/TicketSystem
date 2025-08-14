@@ -64,7 +64,7 @@ namespace TicketSystem.Snake
             // Resize the console buffer and window if needed.
             try
             {
-                Console.SetWindowSize(Math.Min(GridWidth, Console.LargestWindowWidth), Math.Min(GridHeight + 3, Console.LargestWindowHeight));
+                Console.SetWindowSize(Math.Min(GridWidth + 2, Console.LargestWindowWidth), Math.Min(GridHeight + 3, Console.LargestWindowHeight));
                 Console.SetBufferSize(Math.Max(Console.BufferWidth, GridWidth), Math.Max(Console.BufferHeight, GridHeight + 3));
             }
             catch { }
@@ -200,8 +200,8 @@ namespace TicketSystem.Snake
                 }
 
                 MoveSnake(currentKey);
-                if (snakeHeadX == 0 || snakeHeadX >= GridWidth ||
-                    snakeHeadY == 0 || snakeHeadY >= GridHeight)
+                if (snakeHeadX == 0 || snakeHeadX >= GridWidth - 1 ||
+                    snakeHeadY == 0 || snakeHeadY >= GridHeight - 1)
                 {
                     DrawGrid();
                     exitGame = true;
@@ -310,8 +310,12 @@ namespace TicketSystem.Snake
         
         static async Task Clean()
         {
-            Console.SetWindowSize(200, 200);
-            Console.SetBufferSize(200, 200);
+            Console.SetWindowSize(85, 25);
+            Console.SetBufferSize(85, 25);
+
+            currentKey = ConsoleKey.RightArrow;
+            snakeBody.Clear();
+
             Console.Clear();
         }
     }
